@@ -24,7 +24,6 @@
 
 #include <string>
 
-#include "s2/base/integral_types.h"
 
 #define DEFINE_bool(name, default_value, description) \
   bool FLAGS_##name = default_value
@@ -37,9 +36,9 @@
   extern double FLAGS_##name
 
 #define DEFINE_int32(name, default_value, description) \
-  int32 FLAGS_##name = default_value
+  int32_t FLAGS_##name = default_value
 #define DECLARE_int32(name) \
-  extern int32 FLAGS_##name
+  extern int32_t FLAGS_##name
 
 #define DEFINE_string(name, default_value, description) \
   std::string FLAGS_##name = default_value
