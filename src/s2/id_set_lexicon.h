@@ -48,8 +48,8 @@
 //   ValueLexicon<string> labels_;
 //   IdSetLexicon label_sets_;
 //
-//   int32_t GetLabelSet(const vector<string>& label_strings) {
-//     vector<int32_t> label_ids;
+//   int32_t GetLabelSet(const vector<std::string>& label_strings) {
+//     vector<int32> label_ids;
 //     for (const auto& str : label_strings) {
 //       label_ids.push_back(labels_.Add(str));
 //     }
