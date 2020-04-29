@@ -32,6 +32,7 @@
 #include <cassert>
 #include <climits>
 #include <cstdlib>
+#include <cstdint>
 #include <cstring>
 
 #include "s2/third_party/absl/base/config.h"
