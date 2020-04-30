@@ -164,10 +164,10 @@ class dense_hash_set {
 
   typedef typename ht::size_type size_type;
   typedef typename ht::difference_type difference_type;
-  typedef typename const Value* pointer;
-  typedef typename const Value* const_pointer;
-  typedef typename const Value& reference;
-  typedef typename const Value& const_reference;
+  typedef const typename ht::value_type* pointer;
+  typedef const typename ht::value_type* const_pointer;
+  typedef const typename ht::value_type& reference;
+  typedef const typename ht::value_type& const_reference;
 
   typedef typename ht::const_iterator iterator;
   typedef typename ht::const_iterator const_iterator;

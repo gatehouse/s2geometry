@@ -322,10 +322,10 @@ class dense_hashtable {
 
   typedef typename value_alloc_type::size_type size_type;
   typedef typename value_alloc_type::difference_type difference_type;
-  typedef typename Value& reference;
-  typedef typename const Value& const_reference;
-  typedef typename Value* pointer;
-  typedef typename const Value* const_pointer;
+  typedef Value& reference;
+  typedef const Value& const_reference;
+  typedef Value* pointer;
+  typedef const Value* const_pointer;
   typedef dense_hashtable_iterator<Value, Key, HashFcn,
                                    ExtractKey, SetKey, EqualKey, Alloc>
   iterator;
