@@ -182,7 +182,7 @@ struct dense_hashtable_const_iterator;
 template <class V, class K, class HF, class ExK, class SetK, class EqK, class A>
 struct dense_hashtable_iterator {
  private:
-  using value_alloc_type = typename std::allocator_traits<typename A>::template rebind_alloc<typename V>;
+  using value_alloc_type = typename std::allocator_traits<A>::template rebind_alloc<V>;
 
  public:
   typedef dense_hashtable_iterator<V, K, HF, ExK, SetK, EqK, A>
@@ -245,7 +245,7 @@ struct dense_hashtable_iterator {
 template <class V, class K, class HF, class ExK, class SetK, class EqK, class A>
 struct dense_hashtable_const_iterator {
  private:
-  using value_alloc_type = typename std::allocator_traits<typename A>::template rebind_alloc<typename V>;
+  using value_alloc_type = typename std::allocator_traits<A>::template rebind_alloc<V>;
 
  public:
   typedef dense_hashtable_iterator<V, K, HF, ExK, SetK, EqK, A>
@@ -311,7 +311,7 @@ template <class Value, class Key, class HashFcn,
           class ExtractKey, class SetKey, class EqualKey, class Alloc>
 class dense_hashtable {
  private:
-  using value_alloc_type = typename std::allocator_traits<typename Alloc>::template rebind_alloc<typename Value>;
+  using value_alloc_type = typename std::allocator_traits<Alloc>::template rebind_alloc<Value>;
 
  public:
   typedef Key key_type;
