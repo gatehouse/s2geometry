@@ -182,7 +182,9 @@ struct dense_hashtable_const_iterator;
 template <class V, class K, class HF, class ExK, class SetK, class EqK, class A>
 struct dense_hashtable_iterator {
  private:
-  using value_alloc_type = typename std::allocator_traits<A>::template rebind_alloc<V>;
+  using value_alloc_type =
+      typename std::allocator_traits<A>::template rebind_alloc<V>;
+  using value_alloc_traits = std::allocator_traits<value_alloc_type>;
 
  public:
   typedef dense_hashtable_iterator<V, K, HF, ExK, SetK, EqK, A>
@@ -245,7 +247,9 @@ struct dense_hashtable_iterator {
 template <class V, class K, class HF, class ExK, class SetK, class EqK, class A>
 struct dense_hashtable_const_iterator {
  private:
-  using value_alloc_type = typename std::allocator_traits<A>::template rebind_alloc<V>;
+  using value_alloc_type =
+      typename std::allocator_traits<A>::template rebind_alloc<V>;
+  using value_alloc_traits = std::allocator_traits<value_alloc_type>;
 
  public:
   typedef dense_hashtable_iterator<V, K, HF, ExK, SetK, EqK, A>
@@ -311,7 +315,9 @@ template <class Value, class Key, class HashFcn,
           class ExtractKey, class SetKey, class EqualKey, class Alloc>
 class dense_hashtable {
  private:
-  using value_alloc_type = typename std::allocator_traits<Alloc>::template rebind_alloc<Value>;
+  using value_alloc_type =
+      typename std::allocator_traits<Alloc>::template rebind_alloc<Value>;
+  using value_alloc_traits = std::allocator_traits<value_alloc_type>;
 
  public:
   typedef Key key_type;
@@ -574,7 +580,9 @@ class dense_hashtable {
   // FUNCTIONS CONCERNING SIZE
  public:
   size_type size() const      { return num_elements - num_deleted; }
-  size_type max_size() const { return get_allocator().max_size(); }
+  size_type max_size() const {
+    return value_alloc_traits::max_size(get_allocator());
+  }
   bool empty() const          { return size() == 0; }
   size_type bucket_count() const      { return num_buckets; }
   size_type max_bucket_count() const  { return max_size(); }

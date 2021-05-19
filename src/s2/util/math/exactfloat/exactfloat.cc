@@ -92,6 +92,8 @@ inline static void BN_ext_set_uint64(BIGNUM* bn, uint64_t v) {
 #endif
 }
 
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+
 // Return the absolute value of a BIGNUM as a 64-bit unsigned integer.
 // Requires that BIGNUM fits into 64 bits.
 inline static uint64_t BN_ext_get_uint64(const BIGNUM* bn) {
@@ -106,8 +108,6 @@ inline static uint64_t BN_ext_get_uint64(const BIGNUM* bn) {
   return (static_cast<uint64_t>(bn->d[1]) << 32) + bn->d[0];
 #endif
 }
-
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
 
 // Count the number of low-order zero bits in the given BIGNUM (ignoring its
 // sign).  Returns 0 if the argument is zero.
@@ -128,6 +128,22 @@ static int BN_ext_count_low_zero_bits(const BIGNUM* bn) {
 }
 
 #else  // OPENSSL_VERSION_NUMBER >= 0x10100000L
+
+// Return the absolute value of a BIGNUM as a 64-bit unsigned integer.
+// Requires that BIGNUM fits into 64 bits.
+inline static uint64 BN_ext_get_uint64(const BIGNUM* bn) {
+  uint64 r;
+#ifdef IS_LITTLE_ENDIAN
+  S2_CHECK_EQ(BN_bn2lebinpad(bn, reinterpret_cast<unsigned char*>(&r),
+              sizeof(r)), sizeof(r));
+#elif IS_BIG_ENDIAN
+  S2_CHECK_EQ(BN_bn2binpad(bn, reinterpret_cast<unsigned char*>(&r),
+              sizeof(r)), sizeof(r));
+#else
+#error one of IS_LITTLE_ENDIAN or IS_BIG_ENDIAN should be defined!
+#endif
+  return r;
+}
 
 static int BN_ext_count_low_zero_bits(const BIGNUM* bn) {
   // In OpenSSL >= 1.1, BIGNUM is an opaque type, so d and top

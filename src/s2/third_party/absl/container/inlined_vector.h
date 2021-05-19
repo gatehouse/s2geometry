@@ -85,6 +85,7 @@ class InlinedVector {
   using IteratorCategory =
       typename std::iterator_traits<Iterator>::iterator_category;
 
+  using AllocatorTraits = std::allocator_traits<A>;
   using rvalue_reference = typename A::value_type&&;
 
  public:
